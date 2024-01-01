@@ -16,6 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'board/templates/board')
+TEMPLATE_ADMIN = os.path.join(BASE_DIR,'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -59,7 +60,7 @@ ROOT_URLCONF = "noticeboard.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [TEMPLATE_DIR,],
+        "DIRS": [TEMPLATE_DIR,TEMPLATE_ADMIN],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -150,5 +151,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'shazhigubata1@gmail.com'
-EMAIL_HOST_PASSWORD = 'gubatagubata'
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'shazhigubata1@gmail.com'
