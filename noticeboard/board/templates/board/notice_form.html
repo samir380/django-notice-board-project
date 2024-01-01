@@ -1,0 +1,101 @@
+{% extends "board/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}<title>Create/Update</title>{% endblock title %}
+{% block slider %}
+
+<div class="slider-area">
+    <div class="pages-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url({% static "img/bg/others_bg.jpg" %});">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">Create/Update</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="{% url "notice_list" %}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Create/Update</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock slider %}
+
+
+{% block body %}
+
+<div class="course-details-area gray-bg pt-100 align-middle">
+        <div class="container">
+            <div class="row">
+                <div class="container">
+                    <div class="single-course-details-area mb-30 ">
+                        <div class="single-course-details white-bg">
+                            <div class="course-details-title mb-20">
+                                <h1>Create/Update Notice</h1>
+                            </div>
+                            <div class="course-details-tabs">
+                                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">New Notice</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent align-middle">
+                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <form class='bootstrap4' method="POST" enctype="multipart/form-data">
+                                        <div class="course-details-overview-top">
+                                            {% csrf_token %}
+
+                                            <style>
+                                                #id_content {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            {{ form|crispy }}
+                                            {{ form.errors }}
+                                            
+                                        </div>
+                                        <div class="course-details-overview-bottom d-flex justify-content-between mt-25">
+                                            <div class="course-overview-info-left">
+                                               <div class="faq-form-btn">
+                                                    <span><button class="btn">Post Notice</button></span>
+                                                </div>
+                                        </form>
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                var textareaContent = document.getElementById('id_content').value;
+                                                var editor = new MediumEditor('#id_content', {
+                                                    // Add any Medium Editor options you want here
+                                                    placeholder: {
+                                                        text: 'Type your content here...'
+                                                    }
+                                                });
+                                                editor.setContent(textareaContent);
+                                            });
+                                        </script>
+                                            </div>
+                                            <div class="course-overview-info-right">
+                                                <div class="faq-form-btn">
+                                                    <!--<span><a href="{% url 'notice_list' %}"><i class='fas fa-home' style='font-size:36px'></i></a><span class="primary-color"></span></span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+{% endblock body %}
+

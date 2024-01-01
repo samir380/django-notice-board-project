@@ -1,0 +1,304 @@
+<!doctype html>
+{% load static %}
+
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {% block title %}<title>Online Notice Board</title>{% endblock title %}
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="manifest" href="site.html">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.png" %}">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- medium editor cdn -->
+    <!-- Add these lines to your HTML template's head section -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@5.23.3/dist/css/medium-editor.min.css">
+<script src="https://cdn.jsdelivr.net/npm/medium-editor@5.23.3/dist/js/medium-editor.min.js"></script>
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/animate.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">
+    <link rel="stylesheet" href="{% static "css/fontawesome-all.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/themify-icons.css" %}">
+    <link rel="stylesheet" href="{% static "css/slick.css" %}">
+    <link rel="stylesheet" href="{% static "css/meanmenu.css" %}">
+    <link rel="stylesheet" href="{% static "css/default.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/responsive.css" %}">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <!-- header-start -->
+    <header id="home">
+
+            <!-- header-bottom -->
+            <div class="header-bottom-area header-sticky" style="transition: .6s;">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-2 col-lg-2 col-md-6 col-6">
+                            <div class="logo">
+                                <a href="{% url "notice_list" %}">
+                                    <img src="{% static "img/logo/logo.png" %}" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-6 col-6">
+                            <div class="header-bottom-icon f-right">
+                                <ul>
+                                    
+                                    {% if user.is_authenticated %}{% else %}<li class="shopping-cart"><a href="{% url "login" %}"><img src="{% static "img/logo/login.png" %}" alt="">{% endif %}
+                                           <!--<span class="shopping-counter"></span>--> 
+                                        </a></li>
+                                </ul>
+                            </div>
+                            <div class="main-menu f-right">
+                                <nav id="mobile-menu" style="display: block;">
+                                    <ul>
+                                        {% block search %}
+                                    
+                                               
+                                               
+                                          
+                                    {% endblock search %}
+                                        
+                                        <li>
+                                            {% if user.is_authenticated %}
+                                            <a  href="{% url "notice_create" %}">New Post</a>
+                                            {% else %}
+                                            <li>
+                                                <a href=""></a>
+                                            </li>
+                                            {% endif %}
+                                        </li>
+                                        {% if user.is_authenticated %}
+                                        <li>
+                                            <a href="">{{ user.username }}</a>
+                                            <ul class="submenu">
+                                                <li>
+                                                    <a href="{% url "logout" %}">Logout</a>
+                                                </li>
+                                                
+                                                <li>
+                                                    <a href="{% url "admin:index" %}">Super Admin</a>
+                                                </li>
+                                                
+                                            </ul>
+                                        </li>
+                                        {% else %}
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile-menu"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /end header-bottom -->
+        </div>
+    </header>
+    <!-- header-end -->
+    <!-- slider-start -->
+    {% block slider %}
+    <div class="slider-area pos-relative">
+        <div class="slider-active">
+            <div class="single-slider slider-height d-flex align-items-center" style="background-image: url({% static "img/slider/slider_bg_001.jpg" %})">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 col-md-12">
+                            <div class="slider-content slider-content-2">
+                                <h1 class="white-color f-700" data-animation="fadeInUp" data-delay=".2s">Online Notice Board<br>Management System</h1>
+                                <p data-animation="fadeInUp" data-delay=".4s">Experience seamless communication and organization with our Online Notice Board Management System. Effortlessly have access to announcements, events, and updates in real-time.<br></p>
+                                <!-- <button class="btn yellow-bg-btn" data-animation="fadeInUp" data-delay=".6s">admit now</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-slider slider-height d-flex align-items-center" style="background-image: url({% static "img/slider/slider_bg_002.jpg" %})">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 col-md-12">
+                            <div class="slider-content slider-content-2">
+                                <h1 class="white-color f-700" data-animation="fadeInUp" data-delay=".2s">Online Notice Board<br>Management System</h1>
+                                <p data-animation="fadeInUp" data-delay=".4s"> Revolutionize communication with our Online Notice Board Management System! <br> Instantly access to news, deadlines, and events with a user-friendly platform.</p>
+                                <!-- <button class="btn yellow-bg-btn" data-animation="fadeInUp" data-delay=".6s">admit now</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!-- <div class="single-slider slider-height d-flex align-items-center" style="background-image: url({% static "img/slider/slider_bg_001.jpg" %})">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 col-md-12">
+                            <div class="slider-content slider-content-2">
+                                <h1 class="white-color f-700" data-animation="fadeInUp" data-delay=".2s">Online Notice Board<br>Management System</h1>
+                                <p data-animation="fadeInUp" data-delay=".4s">Streamline information sharing, enhance collaboration, and keep your campuses connected. Your digital hub for staying informed and engaged.<br></p>
+                               <! <button class="btn yellow-bg-btn" data-animation="fadeInUp" data-delay=".6s">admit now</button> >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    {% endblock slider %}
+    <!-- slider-end -->
+
+     <!-- courses start -->
+    {% block body %}
+    
+    {% endblock body %}
+     <!-- courses end -->
+
+     <!-- latest_blog end -->
+   
+    <!-- subscribe start -->
+    
+    <!-- subscribe end -->
+    
+    <!-- footer start -->
+    <footer id="Contact">
+        <div class="footer-area primary-bg pt-150">
+            <div class="container">
+                <div class="footer-top pb-35">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="footer-widget mb-30">
+                                <div class="footer-logo">
+                                    <img src="{% static "img/logo/logo.png" %}" alt="">
+                                </div>
+                                <div class="footer-para">
+                                    <p>Welcome to the future of announcements! Our Online Notice Board Management System is the ultimate solution for streamlined communication. view, and interact with updates seamlessly. Enhance your online presence and foster a well-informed community. A smarter way to share information! </p>
+                                </div>
+                                <div class="footer-socila-icon">
+                                    <span>Follow Us</span>
+                                    <div class="footer-social-icon-list">
+                                        <ul>
+                                            <li><a href="#"><span class="ti-facebook"></span></a></li>
+                                            <li><a href="#"><span class="ti-twitter-alt"></span></a></li>
+                                            <li><a href="#"><span class="ti-dribbble"></span></a></li>
+                                            <li><a href="google.com"><span class="ti-google"></span></a></li>
+                                            <li><a href="#"><span class="ti-instagram"></span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="footer-widget mb-30">
+                                <div class="footer-heading">
+                                    <h1>Quick Links</h1>
+                                </div>
+                                <div class="footer-menu clearfix">
+                                    <ul>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Condition</a></li>
+                                        <li><a href="#">Support</a></li>
+                                        <li><a href="#">Team Member</a></li>
+                                        <li><a href="#">About Us</a></li>
+                                        <li><a href="#">Contact Us</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 d-lg-none d-xl-block col-md-6">
+                            <div class="footer-widget mb-30">
+                                <div class="footer-heading">
+                                    <h1>Recent Post</h1>
+                                </div>
+                                {% block recent %}{% endblock recent %}
+                               
+                               <!-- <div class="recent-post d-flex mb-25">
+                                    <div class="recent-post-thumb">
+                                        <img src="{% static "img/post/recent_post1.jpg" %}" alt="">
+                                    </div>
+                                    <div class="recent-post-text">
+                                        <p>Neque porro quisquam est qui dolorem ipsum</p>
+                                        <div class="footer-time">
+                                            <span class="ti-time"></span>
+                                            <span class="footer-published-time">05 May 2018</span>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4  col-md-6">
+                            <div class="footer-widget mb-30">
+                                <div class="footer-heading">
+                                    <h1>Contact Us</h1>
+                                </div>
+                                <div class="footer-contact-list">
+                                    <div class="single-footer-contact-info">
+                                        <span class="ti-headphone "></span>
+                                        <span class="footer-contact-list-text">+234 8074 0408 96</span>
+                                    </div>
+                                    <div class="single-footer-contact-info">
+                                        <span class="ti-email "></span>
+                                        <span class="footer-contact-list-text">shazhigubata1@gmail.com</span>
+                                    </div>
+                                    <div class="single-footer-contact-info">
+                                        <span class="ti-location-pin"></span>
+                                        <span class="footer-contact-list-text">Al-Hikmah University Ilorin Kwara state</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom pt-25 pb-25">
+                    <div class="container">
+                        <div class="row">
+                            <!--<div class="col-xl-12">
+                                <div class="footer-copyright text-center">
+                                    <span><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+
+    <!-- JS here -->
+    <script src="{% static "js/vendor/modernizr-3.5.0.min.js" %}"></script>
+    <script src="{% static "js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="{% static "js/popper.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/owl.carousel.min.js" %}"></script>
+    <script src="{% static "js/isotope.pkgd.min.js" %}"></script>
+    <script src="{% static "js/one-page-nav-min.js" %}"></script>
+    <script src="{% static "js/slick.min.js" %}"></script>
+    <script src="{% static "js/ajax-form.js" %}"></script>
+    <script src="{% static "js/wow.min.js" %}"></script>
+    <script src="{% static "js/jquery.meanmenu.min.js" %}"></script>
+    <script src="{% static "js/jquery.barfiller.js" %}"></script>
+    <script src="{% static "js/jquery.scrollUp.min.js" %}"></script>
+    <script src="{% static "js/imagesloaded.pkgd.min.js" %}"></script>
+    <script src="{% static "js/jquery.counterup.min.js" %}"></script>
+    <script src="{% static "js/waypoints.min.js" %}"></script>
+    <script src="{% static "js/jquery.magnific-popup.min.js" %}"></script>
+    <script src="{% static "js/plugins.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+</body>
+
+
+</html>

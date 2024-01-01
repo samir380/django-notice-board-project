@@ -1,0 +1,143 @@
+{% extends "board/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block search %}
+<li class="toggle-search-icon"><a href="#"><span class="ti-search"></span>
+    <div class="toggle-search-box">
+
+<form action="#" id="searchbox" method="GET" action="{% url 'notice_list' %}">
+    <input  type="text" name="q" placeholder="Search by title" value="{{ request.GET.q }}">
+    <button class="button-search"><span class="ti-search"></span></button>
+</form>
+
+      
+</div>
+
+</li>
+{% endblock search %}
+
+{% block body %}
+
+     <!-- courses start -->
+     <div class="courses-area courses-bg-height gray-bg pt-100 pb-70">
+        <div class="container">
+            <div class="courses-list">
+                <div class="row">
+                    <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                        <div class="section-title mb-50 text-center">
+                            <div class="section-title-heading mb-20">
+                                <h1 class="primary-color">Notice</h1>
+                            </div>
+                            <div class="section-title-para">
+                                <p class="gray-color">"Elevate communication with our Online Notice Board System—where efficiency meets innovation. Empower collaboration seamlessly."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--start for loop -->
+                    {% for notice in notices %}
+
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="courses-wrapper course-radius-none mb-30">
+                            <div class="courses-thumb">
+                                <a href="{% url 'notice_detail' notice.id %}">
+                                    {% if notice.image %}
+                                    <img src="{{ notice.image.url }}">
+                                    {% else %}
+                                    <img src="{% static 'img/default.jpg' %}" alt="Default Image"> 
+                                    {% endif %}</a>
+                            </div>
+                            <div class="course-main-content clearfix">
+                                <div class="courses-content">
+                                    <div class="courses-category-name">
+                                        <span>
+                                            <a>{{ notice.category }}</a>
+                                        </span>
+                                    </div>
+                                    <div class="courses-heading">
+                                        <h1><a href="{% url 'notice_detail' notice.id %}">{{ notice.title }}</a></h1>
+                                    </div>
+                                    <div class="courses-para">
+                                        <p id="myParagraph">{{notice.content|safe|linebreaksbr|truncatechars:20}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="courses-wrapper-bottom clearfix">
+                                <div class="courses-icon d-flex f-left">
+                                    <div class="courses-single-icon">
+                                        <span class="ti-user"></span>
+                                        <span class="user-number">{{ notice.created_by.username }}</span>
+                                    </div>
+                                    <div class="courses-single-icon">
+                                        <span class=""></span>
+                                        <span class="user-number">{{ notice.created_at|date:"d M Y" }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                     <!--end for loop -->
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="single-courses-btn text-center mt-15 mb-30">
+                            <!--<button class="btn black-border">View all course</button>-->
+                            {% if is_paginated %}
+
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">first</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}">previous</a>
+  {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+
+      {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{num}}">{{num}}</a>
+
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{num}}</a>
+          
+
+      {% endif %}
+
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+  {% endif %}
+
+{% endif %}
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- courses end -->
+
+   
+
+{% endblock body %}
+
+
+{% block recent %}
+
+{% for notice in notices|slice:":2" %}
+<div class="recent-post d-flex mb-25">
+    <div class="recent-post-thumb">
+        
+    </div>
+    <div class="recent-post-text">
+        <a  href="{% url 'notice_detail' notice.id %}">{{ notice.title }}</a>
+        <div class="footer-time">
+            <span class="ti-time"></span>
+            <span class="footer-published-time">{{ notice.created_at }}</span>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock recent %}

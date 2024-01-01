@@ -1,0 +1,158 @@
+{% extends "board/base.html" %}
+{% load static %}
+{% block title %}<title>Details page</title>{% endblock title %}
+{% block slider %}
+
+<div class="slider-area">
+    <div class="pages-title">
+        <div class="single-slider slider-height slider-height-breadcrumb d-flex align-items-center" style="background-image: url({% static "img/bg/others_bg.jpg" %});">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="slider-content slider-content-breadcrumb text-center">
+                            <h1 class="white-color f-700">Notice Details</h1>
+                            <nav class="text-center" aria-label="breadcrumb">
+                                <ol class="breadcrumb justify-content-center">
+                                    <li class="breadcrumb-item"><a href="{% url "notice_list" %}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ notice.title }}</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock slider %}
+
+
+{% block body %}
+
+<div class="course-details-area gray-bg pt-100 align-middle">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="single-course-details-area mb-30 ">
+                    <div class="course-details-thumb">
+                        {% if notice.image %}
+                        <img src="{{ notice.image.url }}" alt="{{ notice.title }}"> 
+                        
+                        {% endif %}
+                    </div>
+                    <div class="single-course-details white-bg">
+                        <div class="course-details-title mb-20">
+                            <h1>{{ notice.title }}</h1>
+                        </div>
+                        <div class="course-details-tabs">
+                            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">{{ notice.category }}</a>
+                                </li>
+                                
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent align-middle">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <div class="course-details-overview-top">
+                                        <p class="course-details-overview-para">{{ notice.content|safe|linebreaksbr }}</p>
+                                        
+                                    </div>
+                                    <div class="course-details-overview-bottom d-flex justify-content-between mt-25">
+                                        <div class="course-overview-info-left">
+                                            <div class="course-overview-info-advisor mt-10">
+                                                <span class="gray-color">Posted by : <span class="primary-color">{{ notice.created_by.username }}  <span>  /  </span> </span>Time : <span class="primary-color">{{ notice.created_at }}</span></span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="course-overview-info-right">
+                                            <div class="course-overview-info-category mt-10">
+
+                                                {% if notice.file %}
+                                                <a href="{% url 'download_file' notice.id %}"><i class='fas fa-download' style='font-size:36px'></i></a>
+                                                {% endif %}
+
+                                                {% if user.is_authenticated and user == notice.created_by %}
+                                                <span>|</span>
+                                                <span class="faq-form-btn"><a href="{% url 'notice_update' notice.id %}" style='font-size:20px'>Edit <i class='far fa-edit' style='color:green'></i></a></span>
+                                                <span>|</span>
+                                                <span class="faq-form-btn"><a href="{% url 'notice_delete' notice.id %}" style='font-size:20px;'>Delete <i class='far fa-trash-alt'style='color:red'></i></a></span>
+                                                {% endif %}
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+<!-- courses start -->
+<div class="courses-area courses-bg-height gray-bg pt-60 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                <div class="section-title mb-50 text-center">
+                    <div class="section-title-heading mb-20">
+                        <h1 class="primary-color">Similar Notice</h1>
+                    </div>
+                    <div class="section-title-para">
+                        <p>"Knowledge is your passport to endless possibilities. Embrace each lesson, fuel your journey with curiosity, and let learning be your guide. In the realm of education, every bit of information propels you closer to your aspirations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="courses-list">
+            <div class="row">
+
+                <!-- start loop for semular category -->
+
+                {% if category_notices %}
+
+                {% for category_notice in category_notices %}
+
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="courses-wrapper courses-wrapper-3 mb-30">
+                        <div class="courses-thumb">
+                            <img src="{{ category_notice.image.url }}" alt="{{ category_notice.title }}">
+                        </div>
+                        <div class="courses-content courses-content-3 clearfix">
+                            <div class="courses-heading mt-25 d-flex">
+                                <div class="course-title-3">
+                                    <h1><a  href="{% url 'notice_detail' category_notice.id %}">{{ category_notice.title }}</a></h1>
+                                </div>
+                                <div class="courses-pricing-3">
+                                    <span>{{ category_notice.category }}</span>
+                                </div>
+                            </div>
+                            <div class="courses-para mt-15">
+                                <p>{{ category_notice.content|safe|linebreaksbr|truncatechars:20 }}</p>
+                            </div>
+                            <div class="courses-wrapper-bottom clearfix mt-35">
+                                <div class="courses-button">
+                                    <a href="{% url 'notice_detail' category_notice.id %}">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                 <p>No other notices in the same category.</p>
+                {% endif %}
+               <!-- end loop for semilar category -->
+               
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}
